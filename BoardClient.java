@@ -13,20 +13,21 @@ public class BoardClient {
     public static void main(String args[]){
     JFrame frame = new JFrame("BoardClient");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400,200);
+    frame.setSize(800,200);
+
+    JPanel connection = new JPanel();
 
     JButton connect_button = new JButton("Connect");
     JButton disconnect_button = new JButton("Disconnect");
-    JButton post_button = new JButton("POST");
-    JButton get_button = new JButton("GET");
-    JButton pin_button = new JButton("PIN");
-    JButton unpin_button = new JButton("UNPIN");
-    JButton clear_button = new JButton("Clear");
-    JButton shake_button = new JButton("Shake");
 
     JTextField server_ip = new JTextField();
+    server_ip.setPreferredSize( new Dimension( 200, 24 ) );
+    JLabel ip_label = new JLabel("IP Address: ");
     JTextField server_port = new JTextField();
-    JTextField post_command = new JTextField();
+    server_port.setPreferredSize( new Dimension( 200, 24 ) );
+    JLabel port_label = new JLabel("Port #: ");
+
+    JPanel interaction = new JPanel();
 
     JTextArea results = new JTextArea();
 
@@ -60,20 +61,17 @@ public class BoardClient {
         }
     });
 
-    frame.getContentPane().add(BorderLayout.EAST, connect_button);
-    frame.getContentPane().add(BorderLayout.WEST, disconnect_button);
-    //frame.getContentPane().add(BorderLayout.CENTER, post_button);
-    //frame.getContentPane().add(BorderLayout.CENTER, get_button);
-    //frame.getContentPane().add(BorderLayout.CENTER, pin_button);
-    //frame.getContentPane().add(BorderLayout.CENTER, unpin_button);
-    //frame.getContentPane().add(BorderLayout.SOUTH, clear_button);
-    //frame.getContentPane().add(BorderLayout.SOUTH, shake_button);
-    frame.getContentPane().add(BorderLayout.NORTH, server_ip);
-    frame.getContentPane().add(BorderLayout.SOUTH, server_port);
-    //frame.getContentPane().add(BorderLayout.CENTER, post_command);
-    frame.getContentPane().add(BorderLayout.CENTER, results);
+    connection.add(connect_button);
+    connection.add(disconnect_button);
+    connection.add(ip_label);
+    connection.add(server_ip);
+    connection.add(port_label);
+    connection.add(server_port);
 
+    interaction.add(results);
 
+    frame.getContentPane().add(BorderLayout.NORTH,connection);
+    frame.getContentPane().add(BorderLayout.CENTER,interaction);
 
     frame.setVisible(true);
     
@@ -95,11 +93,8 @@ public class BoardClient {
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         String fromServer;
 
-        while ((fromServer = in.readLine()) != null) {
+        if ((fromServer = in.readLine()) != null) {
             System.out.println("Server: " + fromServer);
-            if (fromServer.equals("Bye."))
-                break;
-		    
         }
         stdIn.close();
 
