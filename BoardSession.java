@@ -54,7 +54,6 @@ public class BoardSession implements Runnable{
                     String colour = tokens[5];
                     String message = tokens[6];
 
-                    
 
                 }
                 if (command.equals("GET")){

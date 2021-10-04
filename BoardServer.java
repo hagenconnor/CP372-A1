@@ -7,11 +7,12 @@ public class BoardServer {
     //Board storage. This is our data structure for all notes, server-wide.
     //Use BoardSession.java to make changes.
     public static ArrayList <Note> noteboard = new ArrayList<Note>();
+    static ArrayList <String> avail_colours = new ArrayList<String>();
     public static void main(String[] args) throws Exception {
         int port = Integer.parseInt(args[0]); //Use this later for specifying port number.
         int board_width = Integer.parseInt(args[1]);
         int board_height = Integer.parseInt(args[2]);
-        ArrayList <String> avail_colours = new ArrayList<String>();
+
         for (int i=3; i< args.length; i++){
             avail_colours.add(args[i]);
         }

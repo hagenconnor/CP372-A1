@@ -87,21 +87,39 @@ public class BoardClient {
     post.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed (ActionEvent e){
-            out.println(commands.getText());
+            out.println("POST" + " " + commands.getText());
+            try {
+                results.setText(listenForResponse());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     });
 
     pin.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed (ActionEvent e){
-            out.println(commands.getText());
+            out.println("PIN" + " " + commands.getText());
+            try {
+                results.setText(listenForResponse());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     });
 
     unpin.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed (ActionEvent e){
-            out.println(commands.getText());
+            out.println("UNPIN" + " " + commands.getText());
+            try {
+                results.setText(listenForResponse());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     });
 
