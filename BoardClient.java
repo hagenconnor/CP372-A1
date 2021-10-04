@@ -62,6 +62,7 @@ public class BoardClient {
         public void actionPerformed (ActionEvent e){
             try {
                 closeConnection();
+                results.setText("Connection closed.");
             } catch (NumberFormatException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -74,9 +75,50 @@ public class BoardClient {
     get.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed (ActionEvent e){
-            out.println("Get pressed - Test message to server");
+            out.println("GET" + " " + commands.getText());
+            try {
+                results.setText(listenForResponse());
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     });
+    post.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            out.println(commands.getText());
+        }
+    });
+
+    pin.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            out.println(commands.getText());
+        }
+    });
+
+    unpin.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            out.println(commands.getText());
+        }
+    });
+
+    clear.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            out.println("CLEAR");
+        }
+    });
+
+    shake.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed (ActionEvent e){
+            out.println("SHAKE");
+        }
+    });
+
     //Connection panel.
     connection.add(connect_button);
     connection.add(disconnect_button);
@@ -112,19 +154,16 @@ public class BoardClient {
             out = new PrintWriter(boardSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(boardSocket.getInputStream()));
         } catch (UnknownHostException e) {
-            System.err.println("Don't know about host: taranis.");
+            System.err.println("Unable to find host.");
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to: taranis.");
+            System.err.println("Unable to obtain resources to connect.");
             System.exit(1);
         }
-
-        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         String fromServer;
         
         if ((fromServer = in.readLine()) != null) {
             String text = fromServer;
-            stdIn.close();
             return text;
         }
         else{
@@ -138,6 +177,12 @@ public class BoardClient {
         boardSocket.close();
 
         System.out.println("Connection closed");
+    }
+    private static String listenForResponse() throws IOException{
+        String fromServer;
+        while ((fromServer = in.readLine()) == null){
+        }
+        return fromServer;
     }
 
 }
