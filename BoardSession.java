@@ -75,9 +75,7 @@ public class BoardSession implements Runnable{
                             toResults = toResults + " | " + BoardServer.noteboard.get(i);
                         }
                         out.println(toResults);
-                    }
-                    
-
+                    }                    
                     //if (tokens[1].equals("PINS")) {
                         // if ((existNote.getPinStatus())) {
 

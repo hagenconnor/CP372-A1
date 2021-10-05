@@ -41,4 +41,42 @@ public class BoardServer {
         }
 
     }
+
+    public static ArrayList<Note> searchBoard(String color, String[] contains, String refersTo){
+        ArrayList<Note> results = new ArrayList<Note>();
+        if (color == null & contains == null){
+            //Check only refersTo
+            for (int i=0; i< noteboard.size(); i++){
+                if ((noteboard.get(i).toString()).contains(refersTo)){
+                    results.add(noteboard.get(i));
+                }
+            }
+        }
+        else if (contains == null & refersTo == null){
+            //Check for only color.
+            for (int i=0; i< noteboard.size(); i++){
+                if ((noteboard.get(i).getColour()).equals(color)){
+                    results.add(noteboard.get(i));
+                }
+            }
+        }
+        else if (refersTo == null & color == null){
+            //Check for only contains.
+            for (int i=0; i< noteboard.size(); i++){
+                if ((noteboard.get(i).getCoords().equals(contains))){
+                    results.add(noteboard.get(i));
+                }
+            }
+        }
+        else{
+            //Check for all conditions.
+            for (int i=0; i< noteboard.size(); i++){
+                if ((noteboard.get(i).getColour()).equals(color) & (noteboard.get(i).getCoords().equals(contains)) & (noteboard.get(i).toString()).contains(refersTo)){
+                    results.add(noteboard.get(i));
+                }
+            }
+        }
+        
+        return results;
+    }
 }
