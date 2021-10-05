@@ -96,6 +96,7 @@ public class BoardClient {
             out.println("POST" + " " + commands.getText());
             try {
                 results.setText(listenForResponse());
+                commands.setText(null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

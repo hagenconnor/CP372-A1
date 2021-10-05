@@ -68,11 +68,15 @@ public class BoardSession implements Runnable{
 
                 }
                 if (command.equals("GET")){
-                    String toResults = "";
-                    for (int i = 0; i < BoardServer.noteboard.size(); i++) {
-                        toResults = toResults + " | " + BoardServer.noteboard.get(i);
+
+                    if (tokens.length == 1) {
+                        String toResults = "";
+                        for (int i = 0; i < BoardServer.noteboard.size(); i++) {
+                            toResults = toResults + " | " + BoardServer.noteboard.get(i);
+                        }
+                        out.println(toResults);
                     }
-                    out.println(toResults);
+                    
 
                     //if (tokens[1].equals("PINS")) {
                         // if ((existNote.getPinStatus())) {
