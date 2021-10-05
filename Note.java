@@ -24,4 +24,10 @@ public class Note {
         return this.pin_status;
     }
 
+    @Override
+    public String toString()
+    {   
+        return this.message;
+    }
+
 }

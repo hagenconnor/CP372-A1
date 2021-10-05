@@ -68,20 +68,18 @@ public class BoardSession implements Runnable{
 
                 }
                 if (command.equals("GET")){
+                    String toResults = "";
+                    for (int i = 0; i < BoardServer.noteboard.size(); i++) {
+                        toResults = toResults + " | " + BoardServer.noteboard.get(i);
+                    }
+                    out.println(toResults);
 
-                    // Note existNote = new Note(coord, w, h, c, text, pin);
-
-                    Note x = BoardServer.noteboard.get(1);
-                    out.println(x);
-
-                    if (tokens[1].equals("PIN")) {
+                    //if (tokens[1].equals("PINS")) {
                         // if ((existNote.getPinStatus())) {
 
                         // }
-                    }
+                    //}
 
-                    System.out.println("Got response. Sending it back to client.");
-                    out.println("Got response. Sending it back to client.");
                 }
                 if (command.equals("PIN")){
 
