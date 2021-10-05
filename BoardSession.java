@@ -57,14 +57,29 @@ public class BoardSession implements Runnable{
                     for (int i=6; i< tokens.length; i++){
                         message.add(tokens[i]);
                     }
-                    for (int i=0; i< message.size(); i++){
-                        System.out.println(message.get(i));
+                    String joinedString = "";
+                    for (String s : message) {
+                        joinedString += s + " ";
                     }
-                    Note addNote = new Note(LL_coord, width, height, colour, "Test", 0);
+
+                    Note addNote = new Note(LL_coord, width, height, colour, joinedString, 0);
                     BoardServer.noteboard.add(addNote);
+                    out.println(addNote);
 
                 }
                 if (command.equals("GET")){
+
+                    // Note existNote = new Note(coord, w, h, c, text, pin);
+
+                    Note x = BoardServer.noteboard.get(1);
+                    out.println(x);
+
+                    if (tokens[1].equals("PIN")) {
+                        // if ((existNote.getPinStatus())) {
+
+                        // }
+                    }
+
                     System.out.println("Got response. Sending it back to client.");
                     out.println("Got response. Sending it back to client.");
                 }

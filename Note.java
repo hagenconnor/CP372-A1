@@ -19,4 +19,9 @@ public class Note {
         
         return null;
     }
+
+    public int getPinStatus() {
+        return this.pin_status;
+    }
+
 }
