@@ -190,7 +190,7 @@ public class BoardClient {
     static String openConnection(String ip, int port) throws IOException{
         try {
             boardSocket = new Socket(ip, port);
-            boardSocket.setSoTimeout(10*1000); //Set a timeout to prevent system hang if server does not respond.
+            boardSocket.setSoTimeout(5*1000); //Set a timeout to prevent system hang if server does not respond.
             out = new PrintWriter(boardSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(boardSocket.getInputStream()));
         } catch (UnknownHostException e) {
@@ -224,7 +224,7 @@ public class BoardClient {
         try {
             while ((fromServer = in.readLine()) == null) {
             //Infinite loop to wait for server response.
-            //Exception is thrown from socket if response > 10 secs.
+            //Exception is thrown from socket if response > 5 secs.
             }
         } catch (SocketTimeoutException e){
             fromServer = "Timeout -- No response from server. Please try again.";

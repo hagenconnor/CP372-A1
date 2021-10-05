@@ -48,12 +48,20 @@ public class BoardSession implements Runnable{
                     String[] LL_coord = new String[2];
                     LL_coord[0] = tokens[1];
                     LL_coord[1] = tokens[2];
+                    ArrayList<String> message = new ArrayList<String>();
 
-                    String width = tokens[3];
-                    String height = tokens[4];
+                    
+                    int width = Integer.parseInt(tokens[3]);
+                    int height = Integer.parseInt(tokens[4]);
                     String colour = tokens[5];
-                    String message = tokens[6];
-
+                    for (int i=6; i< tokens.length; i++){
+                        message.add(tokens[i]);
+                    }
+                    for (int i=0; i< message.size(); i++){
+                        System.out.println(message.get(i));
+                    }
+                    Note addNote = new Note(LL_coord, width, height, colour, "Test", 0);
+                    BoardServer.noteboard.add(addNote);
 
                 }
                 if (command.equals("GET")){
