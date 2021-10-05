@@ -199,6 +199,8 @@ public class BoardClient {
     private static String listenForResponse() throws IOException{
         String fromServer;
         while ((fromServer = in.readLine()) == null){
+
+            //Add a timeout here!
         }
         return fromServer;
     }
