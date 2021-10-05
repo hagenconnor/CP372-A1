@@ -34,6 +34,7 @@ public class BoardServer {
 
         while(true){
             Socket connection = socket.accept();
+            System.out.println("New connection established.");
             BoardSession newRequest = new BoardSession(connection);
             Thread thread = new Thread(newRequest);
             thread.start();

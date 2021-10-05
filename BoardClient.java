@@ -10,10 +10,11 @@ public class BoardClient {
     static PrintWriter out = null;
     static BufferedReader in = null;
 
+
     public static void main(String args[]){
     JFrame frame = new JFrame("BoardClient");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(800,200);
+    frame.setSize(800,400);
     
     //Connection panel.
     JPanel connection = new JPanel();
@@ -28,10 +29,15 @@ public class BoardClient {
 
     //Results panel.
     JPanel interaction = new JPanel();
+    JLabel results_label = new JLabel("Results: ");
     JTextArea results = new JTextArea();
-    results.setPreferredSize( new Dimension( 200, 200 ) );
+    results.setPreferredSize( new Dimension( 400, 200 ) );
+    results.setLineWrap(true);
+
     
+    //Board panel.
     JPanel board_panel = new JPanel();
+    JLabel command_label = new JLabel("Command: ");
     JTextField commands = new JTextField();
     commands.setPreferredSize( new Dimension( 200, 24 ) );
     JButton post = new JButton("POST");
@@ -49,10 +55,10 @@ public class BoardClient {
                 results.setText(status);
             } catch (NumberFormatException e1) {
                 // TODO Auto-generated catch block
-                e1.printStackTrace();
+                results.setText("ERROR - Please enter a valid IP address/Port Number to connect.");
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
-                e1.printStackTrace();
+                results.setText("ERROR -- unable to initiate connection. Please try again.");
             }
         }
     });
@@ -146,9 +152,11 @@ public class BoardClient {
     connection.add(server_port);
 
     //Results panel
+    interaction.add(results_label);
     interaction.add(results);
 
     //Command panel
+    board_panel.add(command_label);
     board_panel.add(commands);
     board_panel.add(post);
     board_panel.add(get);
@@ -162,6 +170,19 @@ public class BoardClient {
     frame.getContentPane().add(BorderLayout.CENTER,interaction);
     frame.getContentPane().add(BorderLayout.SOUTH, board_panel);
 
+    frame.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            try {
+                closeConnection();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                System.exit(0);
+            }
+        }
+    });
+    
+
     frame.setVisible(true);
     
     }
@@ -169,6 +190,7 @@ public class BoardClient {
     static String openConnection(String ip, int port) throws IOException{
         try {
             boardSocket = new Socket(ip, port);
+            boardSocket.setSoTimeout(10*1000); //Set a timeout to prevent system hang if server does not respond.
             out = new PrintWriter(boardSocket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(boardSocket.getInputStream()));
         } catch (UnknownHostException e) {
@@ -190,6 +212,7 @@ public class BoardClient {
 
     }
     static void closeConnection() throws IOException{
+        out.println("DISCONNECT");
         out.close();
         in.close();
         boardSocket.close();
@@ -197,12 +220,15 @@ public class BoardClient {
         System.out.println("Connection closed");
     }
     private static String listenForResponse() throws IOException{
-        String fromServer;
-        while ((fromServer = in.readLine()) == null){
-
-            //Add a timeout here!
+        String fromServer = null;
+        try {
+            while ((fromServer = in.readLine()) == null) {
+            //Infinite loop to wait for server response.
+            //Exception is thrown from socket if response > 10 secs.
+            }
+        } catch (SocketTimeoutException e){
+            fromServer = "Timeout -- No response from server. Please try again.";
         }
         return fromServer;
     }
-
 }

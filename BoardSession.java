@@ -73,6 +73,11 @@ public class BoardSession implements Runnable{
                     BoardServer.noteboard.clear();
                     out.println("Board cleared.");
                 }
+                if (command.equals("DISCONNECT")){
+                    //Disconnect gracefully. Helps prevent infinite/runaway loops.
+                    Thread.currentThread().interrupt();
+                    break;
+                }
                 
             }
         }
