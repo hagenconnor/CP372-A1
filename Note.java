@@ -30,4 +30,20 @@ public class Note {
         return this.message;
     }
 
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public String getColour() {
+        return this.colour;
+    }
+
+    public String[] getCoords() {
+        return this.bottom_coord;
+    }
+
 }
