@@ -141,6 +141,11 @@ public class BoardSession implements Runnable{
                     Pin newPin = new Pin(x,y);
                     BoardServer.pin_list.add(newPin);
 
+                    // int pin_x = Integer.parseInt(tokens[1]);
+                    // int pin_y = Integer.parseInt(tokens[2]);
+                    // This is only a point though, not a range
+                    // BoardServer.bulletinBoard.add(pin_x + height, pin_y + width);
+
                 }
                 if (command.equals("UNPIN")){
 

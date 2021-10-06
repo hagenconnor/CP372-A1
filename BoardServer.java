@@ -8,6 +8,9 @@ public class BoardServer {
     //Use BoardSession.java to make changes.
     public static ArrayList <Note> noteboard = new ArrayList<Note>();
     static ArrayList <String> avail_colours = new ArrayList<String>();
+    // The actual board
+    static int[][] bulletinBoard = new int[100][100];
+
     static ArrayList<Pin> pin_list = new ArrayList<Pin>();
     static int board_width;
     static int board_height;
