@@ -51,9 +51,9 @@ public class BoardSession implements Runnable{
                 System.out.println(command);
                 
                 if (command.equals("POST")){
-                    String[] LL_coord = new String[2];
-                    LL_coord[0] = tokens[1];
-                    LL_coord[1] = tokens[2];
+                    int[] LL_coord = new int[2];
+                    LL_coord[0] = Integer.parseInt(tokens[1]);
+                    LL_coord[1] = Integer.parseInt(tokens[2]);
                     ArrayList<String> message = new ArrayList<String>();
 
                     

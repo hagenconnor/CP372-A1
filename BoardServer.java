@@ -82,4 +82,13 @@ public class BoardServer {
         
         return results;
     }
+
+    public static void mapNotes(Pin pin){
+        for (int i=0; i< noteboard.size(); i++){
+            int width = noteboard.get(i).start_x;
+            int height = noteboard.get(i).start_y;
+            
+            //Add more code here.
+        }
+    }
 }

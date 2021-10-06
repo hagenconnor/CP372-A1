@@ -25,5 +25,4 @@ public class Pin {
         return text;
     }
 
-
 }
