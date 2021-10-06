@@ -75,12 +75,24 @@ public class BoardSession implements Runnable{
                             toResults = toResults + " | " + BoardServer.noteboard.get(i);
                         }
                         out.println(toResults);
-                    }                    
-                    //if (tokens[1].equals("PINS")) {
-                        // if ((existNote.getPinStatus())) {
+                    }
 
-                        // }
-                    //}
+                    if (tokens[1].equals("color=")) {
+                        Boolean isContained = BoardServer.avail_colours.contains(tokens[2]);
+
+                        if (isContained) {
+                            out.println(BoardServer.searchBoard(tokens[2], null, null));
+                        } else {
+                            out.println("Color that was given is permitted.");
+                            System.err.println("Color that was given is permitted.");
+                        }
+
+                    }
+                    
+
+                    if (tokens[1].equals("PINS")) {
+                        
+                    }
 
                 }
                 if (command.equals("PIN")){

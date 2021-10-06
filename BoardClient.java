@@ -84,6 +84,7 @@ public class BoardClient {
             out.println("GET" + " " + commands.getText());
             try {
                 results.setText(listenForResponse());
+                commands.setText(null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -110,6 +111,7 @@ public class BoardClient {
             out.println("PIN" + " " + commands.getText());
             try {
                 results.setText(listenForResponse());
+                commands.setText(null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
@@ -123,6 +125,7 @@ public class BoardClient {
             out.println("UNPIN" + " " + commands.getText());
             try {
                 results.setText(listenForResponse());
+                commands.setText(null);
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
