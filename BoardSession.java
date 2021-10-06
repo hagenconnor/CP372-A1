@@ -14,9 +14,10 @@ public class BoardSession implements Runnable{
     public void run() {
         try {
             out = new PrintWriter(socket.getOutputStream(), true);
-            out.println("Connected successfully");
+            //out.println("Connected successfully");
             stdIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             try {
+                boardDetails();
                 startBoard();
             } catch (Exception e) {
                 // TODO Auto-generated catch block
@@ -31,6 +32,11 @@ public class BoardSession implements Runnable{
     }
     public BoardSession (Socket socket) throws Exception{
         this.socket = socket;
+    }
+    public void boardDetails(){
+        String output = "-----Online Bulletin Board----\n ver1.0\n Connected successfully.\nBoard Width: " 
+        + BoardServer.board_width + "\nBoard Height: " + BoardServer.board_height + "\nAvailable colors: " + BoardServer.avail_colours + "\n";
+        out.println(output);
     }
 
     public void startBoard() throws Exception{
@@ -68,7 +74,7 @@ public class BoardSession implements Runnable{
 
                 }
                 if (command.equals("GET")){
-
+                    //If GET is used without any arguments.
                     if (tokens.length == 1) {
                         String toResults = "";
                         for (int i = 0; i < BoardServer.noteboard.size(); i++) {
@@ -76,16 +82,33 @@ public class BoardSession implements Runnable{
                         }
                         out.println(toResults);
                     }
-
-                    if (tokens[1].equals("color=")) {
+                    //If contains is used as an argument.
+                    if (tokens[1].equals("contains=")) {
+                        //FIX THIS
+                        out.println(BoardServer.searchBoard(null, null, tokens[2]));
+                    }
+                    //If refersTo is used as an arument.
+                    else if (tokens[1].equals("refersTo=")) {
+                        out.println(BoardServer.searchBoard(null, null, tokens[2]));
+                    }
+                    //If Colour is used as an argument.
+                    else if (tokens[1].equals("color=")) {
                         Boolean isContained = BoardServer.avail_colours.contains(tokens[2]);
 
                         if (isContained) {
                             out.println(BoardServer.searchBoard(tokens[2], null, null));
                         } else {
-                            out.println("Color that was given is permitted.");
-                            System.err.println("Color that was given is permitted.");
+                            out.println("Color that was given is not permitted.");
+                            System.err.println("Color that was given is not permitted.");
                         }
+
+                    }
+                    //All conditions are selected.
+                    else if (tokens[1].equals("color=") & tokens[3].equals("contains=") & tokens[6].equals("refersTo=")){
+
+                    }
+                    //Bad input. Send error.
+                    else{
 
                     }
                     

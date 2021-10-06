@@ -33,6 +33,7 @@ public class BoardClient {
     JTextArea results = new JTextArea();
     results.setPreferredSize( new Dimension( 400, 200 ) );
     results.setLineWrap(true);
+    results.setEditable(false);
 
     
     //Board panel.
@@ -58,6 +59,7 @@ public class BoardClient {
                 results.setText("ERROR - Please enter a valid IP address/Port Number to connect.");
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
+                System.out.println(e1);
                 results.setText("ERROR -- unable to initiate connection. Please try again.");
             }
         }
@@ -205,14 +207,12 @@ public class BoardClient {
             System.exit(1);
         }
         String fromServer;
+        String text = "";
         
-        if ((fromServer = in.readLine()) != null) {
-            String text = fromServer;
-            return text;
+        while (((fromServer = in.readLine()) != null) & (!fromServer.isEmpty())) {
+            text = text + "\n" + fromServer;
         }
-        else{
-            return "error connecting";
-        }
+        return text;
 
     }
     static void closeConnection() throws IOException{
@@ -225,11 +225,18 @@ public class BoardClient {
     }
     private static String listenForResponse() throws IOException{
         String fromServer = null;
+        String text = "";
         try {
             while ((fromServer = in.readLine()) == null) {
             //Infinite loop to wait for server response.
             //Exception is thrown from socket if response > 5 secs.
-            }
+            } 
+            
+            //Might have to rework this ~~ add a while loop to catch all lines of data. use isEmpty to check.
+            /*while (((fromServer = in.readLine()) != null) & (!fromServer.isEmpty())) {
+                text = text + "\n" + fromServer;
+            } */
+
         } catch (SocketTimeoutException e){
             fromServer = "Timeout -- No response from server. Please try again.";
         }

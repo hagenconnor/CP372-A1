@@ -8,10 +8,12 @@ public class BoardServer {
     //Use BoardSession.java to make changes.
     public static ArrayList <Note> noteboard = new ArrayList<Note>();
     static ArrayList <String> avail_colours = new ArrayList<String>();
+    static int board_width;
+    static int board_height;
     public static void main(String[] args) throws Exception {
         int port = Integer.parseInt(args[0]); //Use this later for specifying port number.
-        int board_width = Integer.parseInt(args[1]);
-        int board_height = Integer.parseInt(args[2]);
+        board_width = Integer.parseInt(args[1]);
+        board_height = Integer.parseInt(args[2]);
 
         for (int i=3; i< args.length; i++){
             avail_colours.add(args[i]);
