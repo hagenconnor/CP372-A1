@@ -104,12 +104,16 @@ public class BoardSession implements Runnable{
 
                     }
                     //All conditions are selected.
-                    else if (tokens[1].equals("color=") & tokens[3].equals("contains=") & tokens[6].equals("refersTo=")){
+                    else if (tokens.length == 7) {
+                        if (tokens[1].equals("color=") & tokens[3].equals("contains=") & tokens[6].equals("refersTo=")){
 
+                        }
                     }
+                    
                     //Bad input. Send error.
                     else{
-
+                        out.println("Command that was entered into the system does not exist.");
+                        System.err.println("This entered command does not exist.");
                     }
                     
 
