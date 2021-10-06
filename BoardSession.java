@@ -106,7 +106,7 @@ public class BoardSession implements Runnable{
                     //All conditions are selected.
                     else if (tokens.length == 7) {
                         if (tokens[1].equals("color=") & tokens[3].equals("contains=") & tokens[6].equals("refersTo=")){
-
+                            //out.println(BoardServer.searchBoard(tokens[2], tokens[4], tokens[7]));
                         }
                     }
                     
