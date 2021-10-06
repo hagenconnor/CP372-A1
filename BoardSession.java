@@ -74,6 +74,7 @@ public class BoardSession implements Runnable{
 
                 }
                 if (command.equals("GET")){
+
                     //If GET is used without any arguments.
                     if (tokens.length == 1) {
                         String toResults = "";
@@ -82,10 +83,18 @@ public class BoardSession implements Runnable{
                         }
                         out.println(toResults);
                     }
+                    //Check for PINS command.
+                    else if (tokens[1].equals("PINS")) {
+                        out.println(BoardServer.pin_list);
+                    }
                     //If contains is used as an argument.
-                    if (tokens[1].equals("contains=")) {
-                        //FIX THIS
-                        out.println(BoardServer.searchBoard(null, null, tokens[2]));
+                    else if (tokens[1].equals("contains=")) {
+                        int x = Integer.parseInt(tokens[4]);
+                        int y = Integer.parseInt(tokens[5]);
+                        int[] coord = new int[2];
+                        coord[0] = x;
+                        coord[1] = y;
+                        out.println(BoardServer.searchBoard(null, coord, null));
                     }
                     //If refersTo is used as an arument.
                     else if (tokens[1].equals("refersTo=")) {
@@ -106,7 +115,12 @@ public class BoardSession implements Runnable{
                     //All conditions are selected.
                     else if (tokens.length == 7) {
                         if (tokens[1].equals("color=") & tokens[3].equals("contains=") & tokens[6].equals("refersTo=")){
-                            //out.println(BoardServer.searchBoard(tokens[2], tokens[4], tokens[7]));
+                            int x = Integer.parseInt(tokens[4]);
+                            int y = Integer.parseInt(tokens[5]);
+                            int[] coord = new int[2];
+                            coord[0] = x;
+                            coord[1] = y;
+                            out.println(BoardServer.searchBoard(tokens[2], coord, tokens[7]));
                         }
                     }
                     
@@ -117,12 +131,15 @@ public class BoardSession implements Runnable{
                     }
                     
 
-                    if (tokens[1].equals("PINS")) {
-                        
-                    }
 
                 }
                 if (command.equals("PIN")){
+                    String[] temp =  fromClient.split(" ");
+                    String[] pin_loc = temp[1].split(",");
+                    int x = Integer.parseInt(pin_loc[0]);
+                    int y = Integer.parseInt(pin_loc[1]);
+                    Pin newPin = new Pin(x,y);
+                    BoardServer.pin_list.add(newPin);
 
                 }
                 if (command.equals("UNPIN")){

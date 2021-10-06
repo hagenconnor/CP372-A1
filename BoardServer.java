@@ -8,6 +8,7 @@ public class BoardServer {
     //Use BoardSession.java to make changes.
     public static ArrayList <Note> noteboard = new ArrayList<Note>();
     static ArrayList <String> avail_colours = new ArrayList<String>();
+    static ArrayList<Pin> pin_list = new ArrayList<Pin>();
     static int board_width;
     static int board_height;
     public static void main(String[] args) throws Exception {
@@ -44,7 +45,7 @@ public class BoardServer {
 
     }
 
-    public static ArrayList<Note> searchBoard(String color, String[] contains, String refersTo){
+    public static ArrayList<Note> searchBoard(String color, int[] contains, String refersTo){
         ArrayList<Note> results = new ArrayList<Note>();
         if (color == null & contains == null){
             //Check only refersTo
