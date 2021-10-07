@@ -151,6 +151,21 @@ public class BoardSession implements Runnable{
                 }
             }
                 if (command.equals("UNPIN")){
+                    if (tokens.length == 1){
+                        out.println("ERROR - Invalid PIN coordinates. Please try again.");
+                    }
+                    else {
+                        String[] temp =  fromClient.split(" ");
+                        String[] pin_loc = temp[1].split(",");
+                        int x = Integer.parseInt(pin_loc[0]);
+                        int y = Integer.parseInt(pin_loc[1]);
+                        Pin newPin = new Pin(x,y);
+                        BoardServer.demapPins(newPin);
+                        out.println("Pin removed.");
+
+                        BoardServer.debug(); //Used for debugging.
+
+                }
 
                 }
                 if (command.equals("SHAKE")){
