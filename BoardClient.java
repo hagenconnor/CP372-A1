@@ -227,19 +227,18 @@ public class BoardClient {
         String fromServer = null;
         String text = "";
         try {
-            while ((fromServer = in.readLine()) == null) {
+            /*while ((fromServer = in.readLine()) == null) {
             //Infinite loop to wait for server response.
             //Exception is thrown from socket if response > 5 secs.
-            } 
-            
-            //Might have to rework this ~~ add a while loop to catch all lines of data. use isEmpty to check.
-            /*while (((fromServer = in.readLine()) != null) & (!fromServer.isEmpty())) {
-                text = text + "\n" + fromServer;
             } */
+
+            while (((fromServer = in.readLine()) != null) & (!fromServer.isEmpty())) {
+                text = text + fromServer + "\n";
+            }
 
         } catch (SocketTimeoutException e){
             fromServer = "Timeout -- No response from server. Please try again.";
         }
-        return fromServer;
+        return text;
     }
 }

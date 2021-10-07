@@ -38,7 +38,7 @@ public class Note {
     @Override
     public String toString()
     {   
-        String note_info = "Bottom Coordinates: " + this.bottom_coord[0] + this.bottom_coord[1] + " Width: " + this.width + " Height: " + this.height + " Message: " + this.message + " Pin Status: " + this.pin_status;
+        String note_info = "Bottom Coordinates: " + this.bottom_coord[0] + this.bottom_coord[1] + "\nWidth: " + this.width + "\nHeight: " + this.height + "\nMessage: " + this.message + "\nPin Status: " + this.pin_status;
         return note_info;
     }
 

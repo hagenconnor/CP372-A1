@@ -70,7 +70,7 @@ public class BoardSession implements Runnable{
 
                     Note addNote = new Note(LL_coord, width, height, colour, joinedString, 0);
                     BoardServer.noteboard.add(addNote);
-                    out.println(addNote);
+                    out.println(addNote + "\n");
 
                 }
                 if (command.equals("GET")){
@@ -81,11 +81,11 @@ public class BoardSession implements Runnable{
                         for (int i = 0; i < BoardServer.noteboard.size(); i++) {
                             toResults = toResults + " | " + BoardServer.noteboard.get(i);
                         }
-                        out.println(toResults);
+                        out.println(toResults + "\n");
                     }
                     //Check for PINS command.
                     else if (tokens[1].equals("PINS")) {
-                        out.println(BoardServer.pin_list);
+                        out.println(BoardServer.pin_list+ "\n");
                     }
                     //If contains is used as an argument.
                     else if (tokens[1].equals("contains=")) {
@@ -94,21 +94,21 @@ public class BoardSession implements Runnable{
                         int[] coord = new int[2];
                         coord[0] = x;
                         coord[1] = y;
-                        out.println(BoardServer.searchBoard(null, coord, null));
+                        out.println(BoardServer.searchBoard(null, coord, null) + "\n");
                     }
                     //If refersTo is used as an arument.
                     else if (tokens[1].equals("refersTo=")) {
-                        out.println(BoardServer.searchBoard(null, null, tokens[2]));
+                        out.println(BoardServer.searchBoard(null, null, tokens[2]) + "\n");
                     }
                     //If Colour is used as an argument.
                     else if (tokens[1].equals("color=")) {
                         Boolean isContained = BoardServer.avail_colours.contains(tokens[2]);
 
                         if (isContained) {
-                            out.println(BoardServer.searchBoard(tokens[2], null, null));
+                            out.println(BoardServer.searchBoard(tokens[2], null, null) + "\n");
                         } else {
-                            out.println("Color that was given is not permitted.");
-                            System.err.println("Color that was given is not permitted.");
+                            out.println("Color that was given is not permitted.\n");
+                            System.err.println("Color that was given is not permitted.\n");
                         }
 
                     }
@@ -120,14 +120,14 @@ public class BoardSession implements Runnable{
                             int[] coord = new int[2];
                             coord[0] = x;
                             coord[1] = y;
-                            out.println(BoardServer.searchBoard(tokens[2], coord, tokens[7]));
+                            out.println(BoardServer.searchBoard(tokens[2], coord, tokens[7]) + "\n");
                         }
                     }
                     
                     //Bad input. Send error.
                     else{
-                        out.println("Command that was entered into the system does not exist.");
-                        System.err.println("This entered command does not exist.");
+                        out.println("Command that was entered into the system does not exist.\n");
+                        System.err.println("This entered command does not exist.\n");
                     }
                     
 
@@ -135,7 +135,7 @@ public class BoardSession implements Runnable{
                 }
                 if (command.equals("PIN")){
                     if (tokens.length == 1){
-                        out.println("ERROR - Invalid PIN coordinates. Please try again.");
+                        out.println("ERROR - Invalid PIN coordinates. Please try again.\n");
                     }
                     else {
                         String[] temp =  fromClient.split(" ");
@@ -144,7 +144,7 @@ public class BoardSession implements Runnable{
                         int y = Integer.parseInt(pin_loc[1]);
                         Pin newPin = new Pin(x,y);
                         BoardServer.mapPins(newPin);
-                        out.println("Pin added.");
+                        out.println("Pin added.\n");
 
                         BoardServer.debug(); //Used for debugging.
 
@@ -152,7 +152,7 @@ public class BoardSession implements Runnable{
             }
                 if (command.equals("UNPIN")){
                     if (tokens.length == 1){
-                        out.println("ERROR - Invalid PIN coordinates. Please try again.");
+                        out.println("ERROR - Invalid PIN coordinates. Please try again.\n");
                     }
                     else {
                         String[] temp =  fromClient.split(" ");
@@ -160,8 +160,13 @@ public class BoardSession implements Runnable{
                         int x = Integer.parseInt(pin_loc[0]);
                         int y = Integer.parseInt(pin_loc[1]);
                         Pin newPin = new Pin(x,y);
-                        BoardServer.demapPins(newPin);
-                        out.println("Pin removed.");
+                        if (!(BoardServer.pin_list.contains(newPin))){ //This isnt working
+                            out.println("Pin not found.\n");
+                        }
+                        else{
+                            BoardServer.demapPins(newPin);
+                            out.println("Pin removed.\n");
+                        }
 
                         BoardServer.debug(); //Used for debugging.
 
@@ -173,7 +178,7 @@ public class BoardSession implements Runnable{
                 }
                 if (command.equals("CLEAR")){
                     BoardServer.noteboard.clear();
-                    out.println("Board cleared.");
+                    out.println("Board cleared.\n");
                 }
                 if (command.equals("DISCONNECT")){
                     //Disconnect gracefully. Helps prevent infinite/runaway loops.
