@@ -99,6 +99,20 @@ public class BoardServer {
             }
         }
     }
+    public static void demapPins(Pin pin){
+        pin_list.remove(pin);
+        for (int i=0; i< noteboard.size(); i++){
+            int[] coord = noteboard.get(i).getCoords();
+            int width = noteboard.get(i).start_x;
+            int height = noteboard.get(i).start_y;
+
+            if ((coord[0]) <= (pin.x) && (pin.x) < (width)){
+                if (coord[1] <= (pin.y) && (pin.y) < height){
+                    noteboard.get(i).downPinStatus();
+                }
+            }
+        }
+    }
 
     //Debug method for testing.
     public static void debug(){
