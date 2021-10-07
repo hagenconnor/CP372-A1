@@ -16,8 +16,8 @@ public class Note {
         this.message = message;
         this.pin_status = pin_status;
 
-        this.start_y = bottom_coord[1] - height;
-        this.start_x = bottom_coord[0] - width;
+        this.start_y = bottom_coord[1] + height;
+        this.start_x = bottom_coord[0] + width;
     }
 
     public String get_note_details(){
@@ -38,7 +38,8 @@ public class Note {
     @Override
     public String toString()
     {   
-        return this.message;
+        String note_info = "bottom_coord: " + this.bottom_coord[0] + this.bottom_coord[1] + "width: " + this.width + "height: " + this.height + "message: " + this.message + "pinStatus: " + this.pin_status;
+        return note_info;
     }
 
     public int getWidth() {

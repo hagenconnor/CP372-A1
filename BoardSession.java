@@ -134,19 +134,22 @@ public class BoardSession implements Runnable{
 
                 }
                 if (command.equals("PIN")){
-                    String[] temp =  fromClient.split(" ");
-                    String[] pin_loc = temp[1].split(",");
-                    int x = Integer.parseInt(pin_loc[0]);
-                    int y = Integer.parseInt(pin_loc[1]);
-                    Pin newPin = new Pin(x,y);
-                    BoardServer.pin_list.add(newPin);
+                    if (tokens.length == 1){
+                        out.println("ERROR - Invalid PIN coordinates. Please try again.");
+                    }
+                    else {
+                        String[] temp =  fromClient.split(" ");
+                        String[] pin_loc = temp[1].split(",");
+                        int x = Integer.parseInt(pin_loc[0]);
+                        int y = Integer.parseInt(pin_loc[1]);
+                        Pin newPin = new Pin(x,y);
+                        BoardServer.mapPins(newPin);
+                        out.println("Pin added.");
 
-                    // int pin_x = Integer.parseInt(tokens[1]);
-                    // int pin_y = Integer.parseInt(tokens[2]);
-                    // This is only a point though, not a range
-                    // BoardServer.bulletinBoard.add(pin_x + height, pin_y + width);
+                        BoardServer.debug(); //Used for debugging.
 
                 }
+            }
                 if (command.equals("UNPIN")){
 
                 }

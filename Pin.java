@@ -1,21 +1,17 @@
-import java.util.ArrayList;
-
 public class Pin {
-    private int x;
-    private int y;
-    private ArrayList<Note> affectedNotes;
+    public int x;
+    public int y;
 
     public Pin (int x, int y){
         this.x = x;
         this.y = y;
-        this.affectedNotes = null;
     }
 
-    public void addNote(Note note){
-        affectedNotes.add(note);
+    public int get_x(Note note){
+        return this.x;
     }
-    public void deleteNote(Note note){
-        affectedNotes.remove(note);
+    public int get_y(Note note){
+        return this.y;
     }
 
     @Override

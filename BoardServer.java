@@ -8,8 +8,7 @@ public class BoardServer {
     //Use BoardSession.java to make changes.
     public static ArrayList <Note> noteboard = new ArrayList<Note>();
     static ArrayList <String> avail_colours = new ArrayList<String>();
-    // The actual board
-    static int[][] bulletinBoard = new int[100][100];
+    
 
     static ArrayList<Pin> pin_list = new ArrayList<Pin>();
     static int board_width;
@@ -86,12 +85,30 @@ public class BoardServer {
         return results;
     }
 
-    public static void mapNotes(Pin pin){
+    public static void mapPins(Pin pin){
+        pin_list.add(pin);
         for (int i=0; i< noteboard.size(); i++){
+            int[] coord = noteboard.get(i).getCoords();
             int width = noteboard.get(i).start_x;
             int height = noteboard.get(i).start_y;
-            
-            //Add more code here.
+
+            if ((coord[0]) <= (pin.x) && (pin.x) < (width)){
+                if (coord[1] <= (pin.y) && (pin.y) < height){
+                    noteboard.get(i).upPinStatus();
+                }
+            }
+        }
+    }
+
+    //Debug method for testing.
+    public static void debug(){
+        System.out.println("-----List of notes-----");
+        for (int i=0; i< noteboard.size(); i++){
+            System.out.println(noteboard.get(i));
+        }
+        System.out.println("---Pin list----");
+        for (int i=0; i< pin_list.size(); i++){
+            System.out.println(pin_list.get(i));
         }
     }
 }
