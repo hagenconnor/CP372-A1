@@ -80,7 +80,7 @@ public class BoardSession implements Runnable{
                                 Note addNote = new Note(LL_coord, width, height, colour, joinedString, 0);
                                 addToNoteboard(addNote);
                                 //BoardServer.noteboard.add(addNote);
-                                out.println(addNote + "\n");
+                                out.println("Note posted.\n" + addNote + "\n");
                             }
                         }
                         else{
