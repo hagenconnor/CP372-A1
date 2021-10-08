@@ -33,7 +33,7 @@ public class BoardServer {
         try {
             socket = new ServerSocket(port);
         } catch (Exception e) {
-            System.err.println("Could not listen on port: 4444.");
+            System.err.println("Could not listen on port: " + port);
             System.exit(1);
         }
 
@@ -47,7 +47,7 @@ public class BoardServer {
 
     }
 
-    public static ArrayList<Note> searchBoard(String color, int[] contains, String refersTo){
+    synchronized public static ArrayList<Note> searchBoard(String color, int[] contains, String refersTo){
         ArrayList<Note> results = new ArrayList<Note>();
         if (color == null & contains == null){
             //Check only refersTo
@@ -85,7 +85,7 @@ public class BoardServer {
         return results;
     }
 
-    public static void mapPins(Pin pin){
+    synchronized public static void mapPins(Pin pin){
         pin_list.add(pin);
         for (int i=0; i< noteboard.size(); i++){
             int[] coord = noteboard.get(i).getCoords();
@@ -99,7 +99,7 @@ public class BoardServer {
             }
         }
     }
-    public static void demapPins(Pin pin){
+    synchronized public static void demapPins(Pin pin){
         pin_list.remove(pin);
         for (int i=0; i< noteboard.size(); i++){
             int[] coord = noteboard.get(i).getCoords();

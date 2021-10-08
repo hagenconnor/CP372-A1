@@ -20,5 +20,12 @@ public class Pin {
         String text = "Pin coord: x: " + x + " y: " + y;
         return text;
     }
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pin pin = (Pin) o;
+        return x == pin.x &&
+                y == pin.y;
+    }
 }

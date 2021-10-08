@@ -139,6 +139,13 @@ public class BoardClient {
         @Override
         public void actionPerformed (ActionEvent e){
             out.println("CLEAR");
+            try {
+                results.setText(listenForResponse());
+                commands.setText(null);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     });
 
@@ -146,6 +153,13 @@ public class BoardClient {
         @Override
         public void actionPerformed (ActionEvent e){
             out.println("SHAKE");
+            try {
+                results.setText(listenForResponse());
+                commands.setText(null);
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
         }
     });
 
@@ -227,17 +241,11 @@ public class BoardClient {
         String fromServer = null;
         String text = "";
         try {
-            /*while ((fromServer = in.readLine()) == null) {
-            //Infinite loop to wait for server response.
-            //Exception is thrown from socket if response > 5 secs.
-            } */
-
             while (((fromServer = in.readLine()) != null) & (!fromServer.isEmpty())) {
                 text = text + fromServer + "\n";
             }
-
         } catch (SocketTimeoutException e){
-            fromServer = "Timeout -- No response from server. Please try again.";
+            text = "Timeout -- No response from server. Please try again.";
         }
         return text;
     }
